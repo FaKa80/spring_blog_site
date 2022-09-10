@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <title th:text="*{title}">Title</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+
+    <style>
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
+        }
+    </style>
+<body>
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/blogs}">SPRING_BLOG</a>
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler"
+                data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link"
+                       sec:authorize="isAnonymous()"
+                       th:href="@{/login}" th:text="#{login.title}">Login<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link"
+                       sec:authorize="isAnonymous()"
+                       th:href="@{/register}" th:text="#{register.title}">Register</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link"
+                       sec:authorize="isAuthenticated()"
+                       th:href="@{/logout}" th:text="#{logout.title}">Logout</a>
+                </li>
+<!--                <li class="nav-item active">-->
+<!--                    <a class="nav-link"-->
+<!--                       th:href="@{/blogs}"-->
+<!--                       th:text="#{feed.title}">Feed</a>-->
+<!--                </li>-->
+                <li class="nav-item active">
+                    <a class="nav-link"
+                       sec:authorize="hasRole('ROLE_ADMIN')"
+                       th:href="@{/blogs/create}" th:text="#{button.create}">Create</a>
+                </li>
+<!--                <li class="nav-item dropdown">-->
+<!--                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown"-->
+<!--                       aria-expanded="false"-->
+<!--                       th:text="${#locale.toLanguageTag().toUpperCase()}"-->
+<!--                    ></a>-->
+<!--                    <ul class="dropdown-menu" aria-labelledby="dropdown01">-->
+<!--                        <li><a class="dropdown-item" th:href="@{''(lang='فا')}"-->
+<!--                               th:unless="${#locale.toString().equals('فا')}">فا</a></li>-->
+<!--                        <li><a class="dropdown-item" th:href="@{''(lang='en')}"-->
+<!--                               th:unless="${#locale.toString().equals('en')}">EN</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+                <li class="nav-item active">
+                    <span class="nav-link"
+                          sec:authorize="isAuthenticated"
+                          th:text="#{user.title} + ' : ' +${#authentication.name}">USERNAME</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<footer th:fragment="footer">
+</footer>
+</body>
+</html>

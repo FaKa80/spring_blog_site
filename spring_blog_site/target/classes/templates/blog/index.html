@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<head>
+
+    <head th:replace="fragments/layout :: head(#{blog.content})"></head>
+    <link rel="stylesheet" th:href="@{/css/blog-style.css}">
+</head>
+<body>
+
+<header th:replace="fragments/layout :: header"></header>
+
+<main>
+
+    <div class="blog-list" style="padding: 20px;">
+        <div class="justify-content-center">
+            <tr th:each="blog: ${blogList}">
+                <div class="card">
+                    <h2 style="text-align: center" th:text="${blog.title}">TITLE</h2>
+                    <p style="text-align:center;"><img th:src="@{${blog.photosImagePath}}"  class="img-fluid"  style="width: 450px;" height="300" />
+                    <p th:text="${blog.content}">Sunt in culpa qui officia deserunt mollit anim id est laborum
+                        consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud
+                        exercitation ullamco.
+                    </p>
+
+                    <a class="btn btn-primary btn-lg btn-block"
+                       th:href="@{'/blogs/' + ${blog.id} + '/view'}"
+                       th:text="#{button.view}"
+                    >
+                        View
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')"
+                       class="btn btn-danger btn-lg btn-block"
+                       th:href="@{'/blogs/' + ${blog.id} + '/edit'}"
+                       th:text="#{button.edit}">
+                        Edit
+                    </a>
+                </div>
+            </tr>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/layout :: footer"></footer>
+
+</body>
+</html>
